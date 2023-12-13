@@ -47,7 +47,7 @@ app.post('/send-email', async (req,res) => {
 
 //CORSのエラー対策 Headerの設定
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://wwww.laundrychecker.com/");
+    res.setHeader("Access-Control-Allow-Origin", "https://www.laundrychecker.com/");
     res.setHeader(
       "Access-Control-Allow-Methods",
       "GET, POST, PUT, PATCH, DELETE, OPTION"
