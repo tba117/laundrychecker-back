@@ -3,12 +3,26 @@ const nodemailer = require('nodemailer');
 const cors = require('cors');
 require('dotenv').config();
 
+
 const USER = process.env.USER;
 const PASS = process.env.PASS;
 
 const app = express();
 app.use(express.json());  //.jsonの受け取り
 app.use(cors());
+
+
+//CORSのエラー対策 Headerの設定
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "https://www.laundrychecker.com/");
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+    );
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization,X-Requested-With,Origin,X-Csrftoken,Accept");
+    next();
+  });
+
 
 
 // フォームのデータを受け取るエンドポイント
@@ -42,19 +56,6 @@ app.post('/send-email', async (req,res) => {
         res.status(500).send('Error sending email.');
     }
 });
-
-
-
-//CORSのエラー対策 Headerの設定
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://www.laundrychecker.com/");
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "GET, POST, PUT, PATCH, DELETE, OPTION"
-    );
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    next();
-  });
 
 
 
